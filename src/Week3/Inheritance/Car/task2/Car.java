@@ -1,90 +1,93 @@
 package Week3.Inheritance.Car.task2;
 public class Car {
-    private float speed;
-    private float gasolineLevel;
-    private float tank = 100;
-    private float topSpeed = 120.0f;
     private String typeName;
+    private double speed = 0;
+    private double topSpeed = 120.0f;
+    private double gasolineLevel = 0.0;
+    private double tank = 100;
 
-    public void addSpeed(float speed) {
-        this.speed += speed;
-    }
-    public void addGas(float gas) {
-        this.gasolineLevel += gas;
-    }
+    private double cruseControlSpeed = 0;
+    private boolean cruseControlOn = false;
 
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
-    public float getTopSpeed() {
-        return topSpeed;
-    }
-
-    public Car(String typeName, float topSpeed, float tank) {
-        speed = 0;
-        gasolineLevel = 0;
+    public Car(String typeName) {
         this.typeName = typeName;
-        this.topSpeed = topSpeed;
-        this.tank = tank;
     }
 
     public void accelerate() {
-        if (gasolineLevel > 0) {
-            speed += 10;
-            if (speed >= topSpeed) speed = topSpeed;
-        } else {
-            speed = 0;
+        if (this.gasolineLevel > 0) {
+            this.gasolineLevel -= 2;
+            this.speed += 10;
+            if(this.speed >= this.topSpeed) this.speed = this.topSpeed;
         }
+        else this.speed = 0;
     }
-
     void decelerate(int amount) {
-        if (gasolineLevel > 0) {
+        if (this.gasolineLevel > 0) {
+            this.gasolineLevel -= amount / 5.0;
+            if (amount > 10) amount = 10;
             if (amount > 0)
-                speed = Math.max(0, speed - amount);
-        } else {
-            speed = 0;
-        }
+                this.speed = Math.max(0, this.speed - amount);
+        } else this.speed = 0;
     }
 
-    float getSpeed() {
-        return speed;
+    public double getSpeed() {
+        return this.speed;
     }
 
-    String getTypeName() {
-        return typeName;
+    public void setSpeed(double speed) {
+        this.speed = speed;
+        if (this.speed < 0) this.speed = 0;
     }
 
-    void fillTank() {
-        gasolineLevel = tank;
+    public double getTopSpeed() {
+        return topSpeed;
+    }
+
+    public String getTypeName() {
+        return this.typeName;
+    }
+
+    public void fillTank() {
+        this.gasolineLevel = this.tank;
+    }
+
+    public void setGasolineLevel(double gasolineLevel) {
+        this.gasolineLevel = gasolineLevel;
+
+        if (this.gasolineLevel < 0) this.gasolineLevel = 0;
+        if (this.gasolineLevel > this.tank) this.fillTank();
     }
 
     public void setTankLimit(int num) {
         this.tank = num;
     }
 
+    public void setCruiseControlSpeed(double num) {
+        this.cruseControlSpeed = num;
+    }
+
     public void setTopSpeed(int num) {
         this.topSpeed = num;
     }
-
-    float getGasolineLevel() {
+    
+    public double getGasolineLevel() {
         return this.gasolineLevel;
     }
 
-    public static void main(String[] args) {
-        Car myCar;
-
-        myCar = new Car("Lada", 120, 100);
-        myCar.fillTank();
-
-        for (int i = 0; i < 6; i++) {
-            myCar.accelerate();
-            System.out.println(myCar.getTypeName() + ": speed is " + myCar.getSpeed() + " km/h");
+    public void turnOnOfCruiseControl() {
+        this.cruseControlOn = !this.cruseControlOn;
+        if (this.cruseControlSpeed > this.topSpeed || this.cruseControlSpeed < 0) {
+            return;
         }
 
-        while (myCar.getSpeed() > 0) {
-            myCar.decelerate(15);
-            System.out.println(myCar.getTypeName() + ": speed is " + myCar.getSpeed() + " km/h");
+        while(this.cruseControlOn && this.speed != this.cruseControlSpeed) {
+            if (this.speed < this.cruseControlSpeed) {
+                this.accelerate();
+            } else {
+                this.decelerate(Math.min(10, (int)(this.speed - this.cruseControlSpeed)));
+            }
+
+            System.out.println(this.getTypeName() + ": speed is " + this.getSpeed() + " km/h");
         }
     }
 }
