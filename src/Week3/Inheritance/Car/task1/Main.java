@@ -1,4 +1,4 @@
-package Week3.Inheritance.Car;
+package Week3.Inheritance.Car.task1;
 
 
 public class Main {

@@ -1,5 +1,4 @@
-package Week3.Inheritance.Car;
-
+package Week3.Inheritance.Car.task1;
 public class Sportscar extends Car {
     public Sportscar(String typeName, float topSpeed, float tank) {
         super(typeName, topSpeed, tank);

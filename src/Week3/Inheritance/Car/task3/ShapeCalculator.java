@@ -8,23 +8,24 @@ public class ShapeCalculator {
         shapesList.add(new Circle(5));
         shapesList.add(new Rectangle(5, 10));
         shapesList.add(new Triangle(5, 10));
-        for (Shape shape : shapesList) {
-            System.out.println("Area of " + shape.getClass().getSimpleName() + " is " + shape.calculateArea());
+       // for (Shape shape : shapesList) {
+           // System.out.println("Area of " + shape.getClass().getSimpleName() + " is " + shape.calculateArea());
+       // }
+// taks 4 on tässä
+        Shape shape1 = shapesList.get(1);
+        Shape shape2 = shapesList.get(1);
+
+
+        if (areShapesCompatible(shape1, shape2)) {
+            System.out.println("The shapes are compatible for the operation.");
+        } else {
+            System.out.println("The shapes are not compatible for the operation.");
         }
-        
-
-
-        //
-        //Create an array of Shape objects containing instances of Circle, Rectangle, and Triangle.
-        //Loop through the array and display the area of each shape.
-        
-       
-
-
-
-       
     }
 
+    public static boolean areShapesCompatible(Shape shape1, Shape shape2) {
+        return shape1.getClass() == shape2.getClass();
 
-    
-}
+        
+    }
+    }
