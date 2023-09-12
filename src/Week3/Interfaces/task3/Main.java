@@ -25,7 +25,7 @@ public class Main {
         electricCar.start();
         electricCar.stop();
         electricCar.getInformation();
-        electricCar.charge(); // 
+        electricCar.charge(); 
     }
        
 }
