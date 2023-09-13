@@ -22,6 +22,7 @@ public class BankAccount {
     public void withdraw(double amount) {
         this.balance -= amount;
         this.withdrawals++;
+        
     }
 
 
